@@ -1,0 +1,15 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse; }
+
+table td {
+  position: relative;
+  padding: 0px; }
+  table td.events {
+    vertical-align: top;
+    width: 80%; }
+
+table hr {
+  position: relative;
+  border-top: dotted 1px #CCCCCC;
+  margin: 0 !important; }

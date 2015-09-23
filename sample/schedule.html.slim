@@ -1,0 +1,37 @@
+ol.breadcrumb
+  li = link_to 'ホーム', admin_root_path
+  li.active
+    | Web面接
+
+h2
+  | Web面接
+
+.button-bar
+  = link_to '一覧', admin_interviews_path, class: 'btn btn-default'
+  = link_to '新規作成', new_admin_interview_path, class: 'btn btn-default'
+  = link_to '空き時間の新規作成', new_admin_available_time_path, class: 'btn btn-default'
+  = link_to '空き時間の一括作成', batch_admin_available_times_path, class: 'btn btn-default'
+  /= link_to '非空き時間の新規作成', new_admin_unavailable_time_path, class: 'btn btn-default'
+  /= link_to '非空き時間の一括作成', batch_admin_unavailable_times_path, class: 'btn btn-default'
+
+.row
+  .col-md-6
+    h3 = l(date, format: :year_month)
+  .col-md-6
+    .pull-right style= "margin-top:20px;"
+      = link_to url_for(date: date.prev_month), class: 'btn btn-default btn-sm' do
+        = fa_icon 'chevron-left'
+      = link_to schedule_admin_interviews_path, class: 'btn btn-default btn-sm' do
+        | 今日
+      = link_to url_for(date: date.next_month), class: 'btn btn-default btn-sm' do
+        = fa_icon 'chevron-right'
+
+ul.pagination.pagination-calendar
+  - (date.beginning_of_month..date.end_of_month).each do |day|
+    li class=("active" if day == date)
+      = link_to schedule_admin_interviews_path(date: day),
+                class: ("sunday" if day.wday == 0) do
+        = day.day
+
+h3 = "#{l(date, format: :long)}"
+= render 'day_calendar'

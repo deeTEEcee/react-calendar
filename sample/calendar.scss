@@ -1,0 +1,50 @@
+.day-calendar {
+  td {
+    position: relative;
+    padding: 0px;
+
+    a {
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      width: inherit;
+    }
+
+    a.available-time {
+      background-color: #BBE8BB;
+      border-color: #7FBD7F;
+      border-style: solid;
+      border-width: 1px;
+      z-index: 1;
+    }
+
+    a.unavailable-time {
+      background-color: #FFAEAE;
+      border-color: #ff5048;
+      border-style: solid;
+      border-width: 1px;
+      z-index: 2;
+    }
+
+    a.interview {
+      background-color: #DBE7FA;
+      border-color: #8FB5F2;
+      border-style: solid;
+      border-width: 1px;
+      z-index: 3;
+    }
+
+    hr {
+      position: relative;
+      border-top: dotted 1px #CCCCCC;
+      margin: 0 !important;
+    }
+  }
+
+  td:hover {
+    a.available-time:hover, a.unavailable-time:hover, a.interview:hover {
+      border: 2px solid #738ACC;
+      z-index: 99;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+table, th, td
+  border: 1px solid black
+  border-collapse: collapse
+
+table
+  td
+    position: relative
+    padding: 0px;
+
+    &.events
+      vertical-align: top
+      width: 80%
+  hr
+    position: relative
+    border-top: dotted 1px #CCCCCC
+    margin: 0 !important

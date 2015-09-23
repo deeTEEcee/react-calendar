@@ -1,0 +1,46 @@
+ruby:
+  num_of_interview_blocks = 1.hour / Interview::DEFAULT_PERIOD_LENGTH.minutes
+  hour_block_height = 60 # px (hour block)
+  interview_block_height = hour_block_height / num_of_interview_blocks # 20 minute blocks
+
+table.table.table-striped.table-bordered.day-calendar
+  tbody
+    - @hours_of_day.each do |datetime|
+      - available_times = @available_times_by_hour.fetch(datetime.hour, [])
+      - unavailable_times = @unavailable_times_by_hour.fetch(datetime.hour, [])
+      - interviews = @interviews_by_hour.fetch(datetime.hour, [])
+      tr style="height: #{hour_block_height}px"
+        td.col-sm-1.col-md-1 = l(datetime, format: :time)
+        td.col-sm-11.col-md-11 style="position:relative;padding:0px;"
+          hr style="top: #{interview_block_height}px;"
+          hr style="top: #{interview_block_height * 2}px;"
+          - available_times.each do |available_time|
+            - offset_ratio = available_time.begins_at.min / Interview::DEFAULT_PERIOD_LENGTH.to_f
+            - height_in_px = ((available_time.ends_at - available_time.begins_at) / 60 / 20) * interview_block_height;
+            = link_to edit_admin_available_time_path(available_time),
+                      class: 'available-time',
+                      style:"top: #{offset_ratio * interview_block_height}px; height: #{height_in_px}px;" do
+              dl
+                dt.small = available_time.time_format
+          - unavailable_times.each do |unavailable_time|
+            - offset_ratio = unavailable_time.begins_at.min / Interview::DEFAULT_PERIOD_LENGTH.to_f
+            - height_in_px = ((unavailable_time.ends_at - unavailable_time.begins_at) / 60 / 20) * interview_block_height;
+            - link = unavailable_time.html_link ? unavailable_time.html_link : admin_unavailable_time_path(unavailable_time)
+            - target = unavailable_time.html_link ? '_blank' : '_self'
+            = link_to link,
+                      class: 'unavailable-time',
+                      target: target,
+                      style:"top: #{offset_ratio * interview_block_height}px; height: #{height_in_px}px;" do
+              dl
+                dt.small = unavailable_time.time_format
+          - interviews.each do |interview|
+            - offset_ratio = interview.begins_at.min / Interview::DEFAULT_PERIOD_LENGTH.to_f
+            - height_in_px = ((interview.ends_at - interview.begins_at) / 60 / 20) * interview_block_height;
+            = link_to edit_admin_interview_path(interview),
+                      class: 'interview',
+                      style:"top: #{offset_ratio * interview_block_height}px; height: #{height_in_px}px;" do
+              dl
+                dt.small
+                  = interview.time_format
+                  | &nbsp&nbsp&nbsp
+                  = interview.entry.full_name
