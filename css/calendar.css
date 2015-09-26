@@ -1,5 +1,5 @@
 table, th, td {
-  border: 1px solid black;
+  outline: 1px solid black;
   border-collapse: collapse; }
 
 table td {
@@ -8,8 +8,21 @@ table td {
   table td.events {
     vertical-align: top;
     width: 80%; }
-
-table hr {
-  position: relative;
-  border-top: dotted 1px #CCCCCC;
-  margin: 0 !important; }
+  table td hr {
+    position: absolute;
+    width: 100%;
+    border-top: dotted 1px #CCCCCC;
+    margin: 0 !important; }
+  table td div.event-by-hour {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    background-color: #DBE7FA;
+    border-color: #8FB5F2;
+    border-style: solid;
+    border-width: 1px; }
+    table td div.event-by-hour dl {
+      display: inline; }
+      table td div.event-by-hour dl dt {
+        font-weight: bold;
+        font-size: small; }

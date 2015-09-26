@@ -3,28 +3,33 @@
 <head>
   <meta charset="utf-8">
   <title>React</title>
+  <link rel="stylesheet" type="text/css" href="css/calendar.css">
 </head>
 
 <body>
   <h1>Test</h1>
   <table border="1" style="width: 500px;">
-    <tbody>
-      <tr style="height:60px;">
-        <td> ??:?? </td>
-        <td style="position:relative; padding: 0px;">
-          <hr style="top: 20px;">
-          <hr style="top: 40px;">
-        </td>
-      </tr>
-      <tr style="height:60px;">
-        <td> ??:?? </td>
-        <td style="position:relative; padding: 0px;">
-          <hr style="top: 20px;">
-          <hr style="top: 40px;">
-        </td>
-      </tr>
+    <tr style="height:60px;">
+      <td> ??:?? </td>
+      <td class="events">
+        <hr style="top: 20px;">
+        <hr style="top: 40px;">
+      </td>
+    </tr>
+    <tr style="height:60px;">
+      <td> ??:?? </td>
+      <td class="events">
+        <hr style="top: 20px;">
+        <hr style="top: 40px;">
+        <div class="inner-event" style="display: none; height: 20px;">
+          <dl>
+            <dt>Event requires time</dt>
+          </dl>
+        </div>
+      </td>
+    </tr>
+    <div class="event"></div>
 
-    </tbody>
   </table>
 </body>
 </html>

@@ -1,82 +1,20 @@
-## Constants / Setup
-{div, table, tr, td, hr} = React.DOM
+###
+Input:
+  list of events (begins_at, ends_at)
+  list of settings:
+    - type of display (day, weeek, month)
+    - step (is for hour. 1 hour, 2 hours?)
+    - cells_per_block (for day)
 
-## Main Classes
-Calendar = React.createClass({
-  getInitialState: () ->
-    {
-      type: "day"
-      step: 1
-      cells_per_block: 3
-    }
+  React.createElement(Calendar, events: [events])
 
-  render: () ->
-    (div {}, [
-      React.createElement(FullDisplay)
-    ])
-})
+###
 
-FullDisplay = React.createClass({
-  getInitialState: () ->
-    {
-      type: "day"
-      step: 1
-      cells_per_block: 3
-    }
-  render: () ->
-    blocks = []
-    for hour in [0..23]
-      if hour < 10
-        output = "0#{hour}:00"
-      else
-        output = "#{hour}:00"
 
-      blocks.push(React.createElement(Block, {output: output}))
-    (div {},
-      table {},
-        blocks
-    )
-})
-
-Block = React.createClass(
-  getDefaultProps: () ->
-    {
-      cellsPerBlock: 3
-      height: 60
-    }
-  cellHeight: () ->
-    @props.height / @props.cellsPerBlock
-  getHorizontalLines: () ->
-    hrs = []
-    for i in [1...@props.cellsPerBlock]
-      hrs.push((hr {style: {top: "#{@cellHeight() * i}px"}}))
-    hrs
-
-  render: () ->
-    console.log('test' + @getHorizontalLines())
-    (tr { style: {height: "#{@props.height}px"}}, [
-      td { className: 'times'}, @props.output
-      td { className: 'events'}, {},
-      @getHorizontalLines()
-    ])
-)
-
-Event = React.createClass({
-  getDefaultProps: () ->
-    minutes = 60
-    cellHeight = -1
-  render: () ->
-    (div {style: {
-        top: minutes / cellHeight,
-        height: minutes
-      }},
-      (dl {},
-        (dt { className: 'small'}, 'text')
-      )
-    )
-})
-
-React.render(React.createElement(Calendar),
+Calendar  = require('./calendar')
+Event  = require('./event')
+document.addEventListener "DOMContentLoaded", (event) ->
+  React.render(React.createElement(Calendar, { events: [React.createElement(Event, {})]}),
               document.getElementById("calendar"))
 
 ###
